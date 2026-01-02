@@ -1,12 +1,16 @@
 package hello.core.member;
 
-import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@AllArgsConstructor
+@Getter
+@Component
 public class MemberServiceImpl implements MemberService {
 
-//    private final MemberRepository memberRepository = new MemoryMemberRepository();
-    private MemberRepository memberRepository;
+    //테스트 용도
+    //    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
 
     @Override
     public void join(Member member) {
@@ -16,5 +20,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member findMember(Long memberId) {
         return memberRepository.findById(memberId);
+    }
+
+    @Autowired
+    public MemberServiceImpl(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 }
